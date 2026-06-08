@@ -47,6 +47,16 @@ export class UserRefreshTokenUseCase {
       },
     );
 
+    await this.tokenRepository.create({
+      id: newToken.id,
+      user_id: foundUser.id,
+    });
+
+    await this.tokenRepository.create({
+      id: newRefreshToken.id,
+      user_id: foundUser.id,
+    });
+
     return { token: newToken, refreshToken: newRefreshToken };
   }
 }
