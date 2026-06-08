@@ -12,6 +12,7 @@ export class EnvFileValidator extends Validator implements IEnvFileValidator {
       APP_PORT: this.z.number().gte(1),
       LOGGER: this.z.boolean(),
       APP_SECRET: this.z.string().trim().min(8),
+      APP_CORS_ORIGIN: this.z.string().trim().min(1),
       JWT_SECRET: this.z.string().trim().min(8),
       JWT_EXPIRES_IN: this.z
         .string()

@@ -3,6 +3,7 @@ import { StringValue } from 'ms';
 export type TEnvValidatorOutput = {
   NODE_ENV: 'development' | 'production' | 'test';
   APP_PORT: number;
+  APP_CORS_ORIGIN: string;
   LOGGER: boolean;
   APP_SECRET: string;
   JWT_SECRET: string;

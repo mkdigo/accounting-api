@@ -3,6 +3,7 @@ import Fastify, {
   FastifyReply,
   HookHandlerDoneFunction,
 } from 'fastify';
+import cors from '@fastify/cors';
 import fastifyCookie from '@fastify/cookie';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
@@ -106,6 +107,11 @@ export class HttpServer {
   }
 
   private async pluginsRegister() {
+    this.server.register(cors, {
+      origin: env.APP_CORS_ORIGIN,
+      credentials: true,
+    });
+
     this.server.register(fastifyCookie, {
       secret: env.APP_SECRET,
     });

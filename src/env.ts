@@ -6,7 +6,7 @@ const NODE_ENV = process.env.NODE_ENV;
 const APP_PORT = !isNaN(Number(process.env.APP_PORT))
   ? Number(process.env.APP_PORT)
   : 3000;
-
+const APP_CORS_ORIGIN = process.env.APP_CORS_ORIGIN;
 const LOGGER = process.env.LOGGER === 'true' ? true : false;
 const APP_SECRET = process.env.APP_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -26,6 +26,7 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const data = {
   NODE_ENV,
   APP_PORT,
+  APP_CORS_ORIGIN,
   LOGGER,
   APP_SECRET,
   JWT_SECRET,
