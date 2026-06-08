@@ -59,7 +59,7 @@ export class AuthenticationSchemas {
         email: z.email(),
       }),
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };
@@ -107,7 +107,7 @@ export class AuthenticationSchemas {
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };
@@ -119,7 +119,7 @@ export class AuthenticationSchemas {
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };

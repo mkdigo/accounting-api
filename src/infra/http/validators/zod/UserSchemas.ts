@@ -40,7 +40,7 @@ export class UserSchemas {
         password: z.string(),
       }),
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };
@@ -111,7 +111,7 @@ export class UserSchemas {
         userId: z.string(),
       }),
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };
@@ -126,7 +126,7 @@ export class UserSchemas {
         email: z.email(),
       }),
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };
@@ -141,7 +141,7 @@ export class UserSchemas {
         code: z.string(),
       }),
       response: {
-        200: z.undefined().describe('Successful'),
+        200: z.object({ success: z.literal(true) }).describe('Successful'),
       },
     },
   };

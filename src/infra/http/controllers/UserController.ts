@@ -109,7 +109,7 @@ export class UserController {
     UserPolicy.delete(request, userId);
     const userDeleteUseCase = new UserDeleteUseCase(this.userRepository);
     await userDeleteUseCase.execute(userId);
-    reply.send();
+    reply.send({ success: true });
   };
 
   public emailVerifySendCode = async (
@@ -134,7 +134,7 @@ export class UserController {
       code: code.code,
       subject: 'Verifique seu e-mail',
     });
-    reply.send();
+    reply.send({ success: true });
   };
 
   public emailVerify = async (
@@ -150,6 +150,6 @@ export class UserController {
       this.codeRepository,
     );
     await userEmailVerifyUseCase.execute(input);
-    reply.send();
+    reply.send({ success: true });
   };
 }

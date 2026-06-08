@@ -68,7 +68,7 @@ export class AuthController {
       await userAuthenticationUseCase.execute(input);
     reply.setCookie('refreshToken', JSON.stringify(refreshToken), {
       path: '/', // Disponível para todo o site
-      secure: env.NODE_ENV === 'production' ? true : false, // Só envia via HTTPS (mantenha false apenas em ambiente de desenvolvimento local sem HTTPS)
+      secure: true, // true Só envia via HTTPS, em ambiente de desenvolvimento pode deixar false caso o navegador não aceite
       httpOnly: true, // Impede acesso via JavaScript (Proteção XSS)
       sameSite: 'strict', // Proteção contra CSRF
       maxAge: 60 * 60 * 24 * 7, // Tempo de vida (ex: 7 dias)
@@ -101,7 +101,7 @@ export class AuthController {
       await userRefreshTokenUseCase.execute(refreshToken.content);
     reply.setCookie('refreshToken', JSON.stringify(newRefreshToken), {
       path: '/', // Disponível para todo o site
-      secure: env.NODE_ENV === 'production' ? true : false, // Só envia via HTTPS (mantenha false apenas em ambiente de desenvolvimento local sem HTTPS)
+      secure: true, // true Só envia via HTTPS, em ambiente de desenvolvimento pode deixar false caso o navegador não aceite
       httpOnly: true, // Impede acesso via JavaScript (Proteção XSS)
       sameSite: 'strict', // Proteção contra CSRF
       maxAge: 60 * 60 * 24 * 7, // Tempo de vida (ex: 7 dias)
@@ -117,12 +117,12 @@ export class AuthController {
       await this.tokenRepository.ban(refreshToken.id);
     }
     await this.tokenRepository.ban(request.auth!.tokenId);
-    reply.send();
+    reply.send({ success: true });
   };
 
   public logoutAllDevices = async (request: TRequest, reply: TReply) => {
     await this.tokenRepository.banAll(request.auth!.user.id);
-    reply.send();
+    reply.send({ success: true });
   };
 
   public createPasswordResetCode = async (
@@ -149,7 +149,7 @@ export class AuthController {
       subject: 'Alteração de senha',
     });
 
-    reply.send();
+    reply.send({ success: true });
   };
 
   public createPasswordResetToken = async (
@@ -184,6 +184,6 @@ export class AuthController {
       passwordHasher,
     );
     await userChangePasswordUseCase.execute(request.auth!.user!.id, password);
-    reply.send();
+    reply.send({ success: true });
   };
 }
