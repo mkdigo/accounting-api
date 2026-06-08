@@ -36,11 +36,6 @@ export class UserSchemas {
         'Para redefinir a senha é necessário um token específico para isso.',
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       body: z.object({
         password: z.string(),
       }),
@@ -83,11 +78,6 @@ export class UserSchemas {
       description: 'Somente a role admin e o próprio usuário pode fazer isso.',
       tags: ['Users'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       params: z.object({
         userId: z.string(),
       }),
@@ -117,11 +107,6 @@ export class UserSchemas {
       description: 'Somente a role admin e o próprio usuário pode fazer isso.',
       tags: ['Users'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       params: z.object({
         userId: z.string(),
       }),

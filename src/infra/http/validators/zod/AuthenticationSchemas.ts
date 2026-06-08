@@ -90,11 +90,6 @@ export class AuthenticationSchemas {
       description: 'Retorna os dados do usuário autenticado',
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       response: {
         200: z
           .object({
@@ -111,17 +106,8 @@ export class AuthenticationSchemas {
       description: 'Inutiliza o token e refresh token',
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       response: {
-        200: z
-          .object({
-            user: userSchema,
-          })
-          .describe('Successful'),
+        200: z.undefined().describe('Successful'),
       },
     },
   };
@@ -132,17 +118,8 @@ export class AuthenticationSchemas {
       description: 'Inutiliza o token e refresh token de todos os dispositivos',
       tags: ['Autentication'],
       security: [{ bearerAuth: [] }],
-      headers: z
-        .object({
-          authorization: z.string().regex(/^Bearer .+$/),
-        })
-        .catchall(z.any()),
       response: {
-        200: z
-          .object({
-            user: userSchema,
-          })
-          .describe('Successful'),
+        200: z.undefined().describe('Successful'),
       },
     },
   };
