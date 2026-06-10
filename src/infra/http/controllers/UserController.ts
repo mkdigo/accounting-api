@@ -6,7 +6,6 @@ import { Cellphone } from '@/domain/value-objects/Cellphone';
 import { Zipcode } from '@/domain/value-objects/Zipcode';
 import { Password } from '@/domain/value-objects/Password';
 
-import { UserListUseCase } from '@/app/use-cases/user/UserListUseCase';
 import { UserCreateUseCase } from '@/app/use-cases/user/UserCreateUseCase';
 import { UserUpdateUseCase } from '@/app/use-cases/user/UserUpdateUseCase';
 import { UserDeleteUseCase } from '@/app/use-cases/user/UserDeleteUseCase';
@@ -26,6 +25,7 @@ import { ICodeRepository } from '@/domain/repositories/ICodeRepository';
 import { UserCreateSecurityCodeUseCase } from '@/app/use-cases/auth/UserCreateSecurityCodeUseCase';
 import { VerificationCodeMail } from '@/infra/emails/VerificationCodeMail';
 import { UserEmailVerifyUseCase } from '@/app/use-cases/user/UserEmailVerifyUseCase';
+import { TokenManagerFactory } from '@/infra/factories/TokenManagerFactory';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -145,11 +145,22 @@ export class UserController {
       email: new Email(request.body.email),
       code: request.body.code,
     };
+    const tokenRepository = RepositoryFactory.getTokenRepository();
+    const tokenManager = TokenManagerFactory.get();
     const userEmailVerifyUseCase = new UserEmailVerifyUseCase(
       this.userRepository,
       this.codeRepository,
+      tokenRepository,
+      tokenManager,
     );
-    await userEmailVerifyUseCase.execute(input);
-    reply.send({ success: true });
+    const { token, refreshToken } = await userEmailVerifyUseCase.execute(input);
+    reply.setCookie('refreshToken', JSON.stringify(refreshToken), {
+      path: '/', // Disponível para todo o site
+      secure: true, // true Só envia via HTTPS, em ambiente de desenvolvimento pode deixar false caso o navegador não aceite
+      httpOnly: true, // Impede acesso via JavaScript (Proteção XSS)
+      sameSite: 'strict', // Proteção contra CSRF
+      maxAge: 60 * 60 * 24 * 7, // Tempo de vida (ex: 7 dias)
+    });
+    reply.send({ token: token.content });
   };
 }

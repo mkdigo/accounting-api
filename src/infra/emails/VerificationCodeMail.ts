@@ -17,7 +17,7 @@ export class VerificationCodeMail {
       );
       const html = file
         .toString()
-        .replace('--code--', code)
+        .replaceAll('--code--', code)
         .replace('--subject--', subject);
 
       const mail = ServiceFactory.getMail();

@@ -25,7 +25,6 @@ import {
 import { TUserPasswordResetBody } from '../validators/zod/UserSchemas';
 import { UserResource } from '../resources/UserResource';
 
-import { env } from '@/env';
 import { Exception } from '@/Exception';
 
 export class AuthController {
