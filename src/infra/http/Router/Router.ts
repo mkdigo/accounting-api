@@ -31,7 +31,7 @@ export class Router {
     childServer
       .withTypeProvider<ZodTypeProvider>()
       .post(
-        '/admin/password-reset',
+        '/users/password-reset',
         UserSchemas.passwordReset,
         authController.passwordReset,
       );
