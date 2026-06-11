@@ -16,6 +16,7 @@ describe('UserCreateUseCase', () => {
     zipcode: new Zipcode('12345-123'),
     state: 'State',
     city: 'City',
+    district: 'Center',
     address: 'Address',
     username: 'usertest',
     password: new Password('Password123$'),
