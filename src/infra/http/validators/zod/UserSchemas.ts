@@ -48,7 +48,7 @@ export class UserSchemas {
   public static create = {
     schema: {
       summary: 'Registrar um novo usuários.',
-      description: 'Somente a role admin pode fazer isso.',
+      description: 'Qualquer pessoa pode criar uma nova conta',
       tags: ['Users'],
       body: z.object({
         name: z.string(),
@@ -75,7 +75,7 @@ export class UserSchemas {
   public static update = {
     schema: {
       summary: 'Alterar os dados de um usuário.',
-      description: 'Somente a role admin e o próprio usuário pode fazer isso.',
+      description: 'Somente o próprio usuário pode fazer isso.',
       tags: ['Users'],
       security: [{ bearerAuth: [] }],
       params: z.object({
@@ -104,7 +104,7 @@ export class UserSchemas {
   public static delete = {
     schema: {
       summary: 'Excluir um usuário permanentemente.',
-      description: 'Somente a role admin e o próprio usuário pode fazer isso.',
+      description: 'Somente o próprio usuário pode fazer isso.',
       tags: ['Users'],
       security: [{ bearerAuth: [] }],
       params: z.object({
@@ -141,7 +141,11 @@ export class UserSchemas {
         code: z.string(),
       }),
       response: {
-        200: z.object({ success: z.literal(true) }).describe('Successful'),
+        200: z
+          .object({
+            token: z.string(),
+          })
+          .describe('Successful'),
       },
     },
   };
