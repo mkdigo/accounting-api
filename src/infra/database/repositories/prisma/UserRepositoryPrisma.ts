@@ -98,7 +98,7 @@ export class UserRepositoryPrisma extends Prisma implements IUserRepository {
   }
 
   async update(id: string, input: TUserUpdateInput): Promise<User> {
-    await this.prisma.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: {
         id,
       },
@@ -113,8 +113,12 @@ export class UserRepositoryPrisma extends Prisma implements IUserRepository {
         username: input.username,
       },
     });
-    const updatedUser = await this.findById(id);
-    return updatedUser!;
+    return new User({
+      ...updatedUser,
+      email: new Email(updatedUser.email),
+      cellphone: new Cellphone(updatedUser.cellphone),
+      zipcode: new Zipcode(updatedUser.zipcode),
+    });
   }
 
   async changePassword(id: string, password: string): Promise<void> {
