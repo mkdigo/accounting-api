@@ -7,12 +7,11 @@ type Props = {
 export class Exception {
   readonly message: string;
   readonly code: number;
-  readonly errors: Record<string, string[]>;
+  readonly errors: Record<string, string[]> | undefined;
 
   constructor(props?: Props) {
-    console.log('exception');
     this.message = props?.message ? props.message : 'Something went wrong!';
     this.code = props?.code ? props.code : 500;
-    this.errors = props?.errors ? props.errors : {};
+    this.errors = props?.errors;
   }
 }
