@@ -51,7 +51,7 @@ export class UserSchemas {
       description: 'Qualquer pessoa pode criar uma nova conta',
       tags: ['Users'],
       body: z.object({
-        name: z.string(),
+        name: z.string().min(3),
         email: z.email(),
         cellphone: z.string().describe('Formato: (11) 91234-1234'),
         zipcode: z.string().describe('Formato: 12345-123'),
@@ -59,8 +59,8 @@ export class UserSchemas {
         city: z.string(),
         district: z.string(),
         address: z.string(),
-        username: z.string(),
-        password: z.string(),
+        username: z.string().min(6),
+        password: z.string().min(8),
       }),
       response: {
         201: z
@@ -82,14 +82,14 @@ export class UserSchemas {
         userId: z.string(),
       }),
       body: z.object({
-        name: z.string().optional(),
+        name: z.string().min(3).optional(),
         cellphone: z.string().optional().describe('Formato: (11) 91234-1234'),
         zipcode: z.string().optional().describe('Formato: 12345-123'),
         state: z.string().optional(),
         city: z.string().optional(),
         district: z.string().optional(),
         address: z.string().optional(),
-        username: z.string().optional(),
+        username: z.string().min(6).optional(),
       }),
       response: {
         200: z
