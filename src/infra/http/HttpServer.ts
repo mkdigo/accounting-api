@@ -110,6 +110,7 @@ export class HttpServer {
     this.server.register(cors, {
       origin: env.APP_CORS_ORIGIN,
       credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     });
 
     this.server.register(fastifyCookie, {
