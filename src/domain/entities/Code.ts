@@ -47,7 +47,7 @@ export class Code {
     const now = new Date();
 
     const isValidCode =
-      new RegExp(`^${this.code}`, 'i').test(code) &&
+      new RegExp(`^${this.code}$`, 'i').test(code) &&
       this.expires_in >= Math.round(now.getTime() / 1000);
 
     return isValidCode;
