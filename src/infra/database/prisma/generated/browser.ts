@@ -32,3 +32,8 @@ export type Code = Prisma.CodeModel
  * 
  */
 export type Token = Prisma.TokenModel
+/**
+ * Model Company
+ * 
+ */
+export type Company = Prisma.CompanyModel

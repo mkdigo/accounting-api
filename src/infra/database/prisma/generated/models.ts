@@ -11,4 +11,5 @@
 export type * from './models/User'
 export type * from './models/Code'
 export type * from './models/Token'
+export type * from './models/Company'
 export type * from './commonInputTypes'
