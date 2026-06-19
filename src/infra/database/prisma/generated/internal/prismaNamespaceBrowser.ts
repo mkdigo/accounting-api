@@ -54,7 +54,10 @@ export const ModelName = {
   User: 'User',
   Code: 'Code',
   Token: 'Token',
-  Company: 'Company'
+  Company: 'Company',
+  Account: 'Account',
+  Tag: 'Tag',
+  AccountTag: 'AccountTag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -123,6 +126,33 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  company_id: 'company_id',
+  name: 'name',
+  group: 'group',
+  subgroup: 'subgroup'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const AccountTagScalarFieldEnum = {
+  account_id: 'account_id',
+  tag_id: 'tag_id'
+} as const
+
+export type AccountTagScalarFieldEnum = (typeof AccountTagScalarFieldEnum)[keyof typeof AccountTagScalarFieldEnum]
 
 
 export const SortOrder = {

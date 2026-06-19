@@ -52,12 +52,69 @@ model Token {
 }
 
 model Company {
-  id         String   @id
+  id         String    @id
   user_id    String
   name       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  accounts   Account[]
 
   @@map("companies")
+}
+
+enum AccountGroup {
+  assets
+  liabilities
+  equity
+  income_statement_accounts
+}
+
+enum AccountSubgroup {
+  current_assets
+  non_current_assets
+  current_liabilities
+  non_current_liabilities
+  revenues
+  costs
+  expenses
+}
+
+model Account {
+  id         String           @id
+  company_id String
+  name       String
+  group      AccountGroup
+  subgroup   AccountSubgroup?
+  company    Company          @relation(fields: [company_id], references: [id], onDelete: Cascade)
+  tags       AccountTag[]
+
+  @@map("accounts")
+}
+
+enum AvailableTags {
+  bank
+  accounts_receivable
+  accounts_payable
+  credit_card
+}
+
+model Tag {
+  id   Int           @id @default(autoincrement())
+  name AvailableTags @unique
+
+  accounts AccountTag[]
+
+  @@map("tags")
+}
+
+model AccountTag {
+  account_id String
+  tag_id     Int
+
+  account Account @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@id([account_id, tag_id])
+  @@map("accounts_tags")
 }

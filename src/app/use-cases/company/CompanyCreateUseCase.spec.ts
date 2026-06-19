@@ -1,6 +1,7 @@
 import { UserRepositoryFake } from '@/infra/database/repositories/fake/UserRepositoryFake';
 import { CompanyCreateUseCase } from './CompanyCreateUseCase';
 import { CompanyRepositoryFake } from '@/infra/database/repositories/fake/CompanyRepositoryFake';
+import { AccountRepositoryFake } from '@/infra/database/repositories/fake/AccountRepositoryFake';
 
 describe('CompanyCreateUseCase', () => {
   it('should be able to create a new company', async () => {
@@ -15,8 +16,15 @@ describe('CompanyCreateUseCase', () => {
       name: 'New Company',
     };
     const companyRepository = new CompanyRepositoryFake();
-    const companyCreateUseCase = new CompanyCreateUseCase(companyRepository);
+    const accountRepository = new AccountRepositoryFake();
+    const companyCreateUseCase = new CompanyCreateUseCase(
+      companyRepository,
+      accountRepository,
+    );
     const company = await companyCreateUseCase.execute(input);
     expect(company).toMatchObject(input);
+
+    const accounts = await accountRepository.list(company.id);
+    expect(accounts.length).toBe(12);
   });
 });

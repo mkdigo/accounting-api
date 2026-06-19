@@ -37,3 +37,18 @@ export type Token = Prisma.TokenModel
  * 
  */
 export type Company = Prisma.CompanyModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model AccountTag
+ * 
+ */
+export type AccountTag = Prisma.AccountTagModel

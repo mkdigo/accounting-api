@@ -15,14 +15,17 @@ import { Exception } from '@/Exception';
 import { CompanyCreateUseCase } from '@/app/use-cases/company/CompanyCreateUseCase';
 import { CompanyUpdateUseCase } from '@/app/use-cases/company/CompanyUpdateUseCase';
 import { CompanyDeleteUseCase } from '@/app/use-cases/company/CompanyDeleteUseCase';
+import { IAccountRepository } from '@/domain/repositories/IAccountRepository';
 
 export class CompanyController {
   private companyRepository: ICompanyRepository;
   private companyResource: CompanyResource;
+  private accountRepository: IAccountRepository;
 
   constructor() {
     this.companyRepository = RepositoryFactory.getCompanyRepository();
     this.companyResource = new CompanyResource();
+    this.accountRepository = RepositoryFactory.getAccountRepository();
   }
 
   public listByUserId = async (request: TRequest, reply: TReply) => {
@@ -66,6 +69,7 @@ export class CompanyController {
     const input = request.body;
     const companyCreateUseCase = new CompanyCreateUseCase(
       this.companyRepository,
+      this.accountRepository,
     );
     const company = await companyCreateUseCase.execute({
       name: input.name,

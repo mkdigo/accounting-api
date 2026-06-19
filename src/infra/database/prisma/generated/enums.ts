@@ -15,3 +15,36 @@ export const CodeType = {
 } as const
 
 export type CodeType = (typeof CodeType)[keyof typeof CodeType]
+
+
+export const AccountGroup = {
+  assets: 'assets',
+  liabilities: 'liabilities',
+  equity: 'equity',
+  income_statement_accounts: 'income_statement_accounts'
+} as const
+
+export type AccountGroup = (typeof AccountGroup)[keyof typeof AccountGroup]
+
+
+export const AccountSubgroup = {
+  current_assets: 'current_assets',
+  non_current_assets: 'non_current_assets',
+  current_liabilities: 'current_liabilities',
+  non_current_liabilities: 'non_current_liabilities',
+  revenues: 'revenues',
+  costs: 'costs',
+  expenses: 'expenses'
+} as const
+
+export type AccountSubgroup = (typeof AccountSubgroup)[keyof typeof AccountSubgroup]
+
+
+export const AvailableTags = {
+  bank: 'bank',
+  accounts_receivable: 'accounts_receivable',
+  accounts_payable: 'accounts_payable',
+  credit_card: 'credit_card'
+} as const
+
+export type AvailableTags = (typeof AvailableTags)[keyof typeof AvailableTags]

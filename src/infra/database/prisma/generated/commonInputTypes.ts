@@ -159,6 +159,57 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type EnumAccountGroupFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountGroup | Prisma.EnumAccountGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel> | $Enums.AccountGroup
+}
+
+export type EnumAccountSubgroupNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountSubgroup | Prisma.EnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel> | $Enums.AccountSubgroup | null
+}
+
+export type EnumAccountGroupWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountGroup | Prisma.EnumAccountGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccountGroupWithAggregatesFilter<$PrismaModel> | $Enums.AccountGroup
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel>
+}
+
+export type EnumAccountSubgroupNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountSubgroup | Prisma.EnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAccountSubgroupNullableWithAggregatesFilter<$PrismaModel> | $Enums.AccountSubgroup | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel>
+}
+
+export type EnumAvailableTagsFilter<$PrismaModel = never> = {
+  equals?: $Enums.AvailableTags | Prisma.EnumAvailableTagsFieldRefInput<$PrismaModel>
+  in?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel> | $Enums.AvailableTags
+}
+
+export type EnumAvailableTagsWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AvailableTags | Prisma.EnumAvailableTagsFieldRefInput<$PrismaModel>
+  in?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAvailableTagsWithAggregatesFilter<$PrismaModel> | $Enums.AvailableTags
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -317,6 +368,57 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumAccountGroupFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountGroup | Prisma.EnumAccountGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel> | $Enums.AccountGroup
+}
+
+export type NestedEnumAccountSubgroupNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountSubgroup | Prisma.EnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel> | $Enums.AccountSubgroup | null
+}
+
+export type NestedEnumAccountGroupWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountGroup | Prisma.EnumAccountGroupFieldRefInput<$PrismaModel>
+  in?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AccountGroup[] | Prisma.ListEnumAccountGroupFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAccountGroupWithAggregatesFilter<$PrismaModel> | $Enums.AccountGroup
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccountGroupFilter<$PrismaModel>
+}
+
+export type NestedEnumAccountSubgroupNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AccountSubgroup | Prisma.EnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AccountSubgroup[] | Prisma.ListEnumAccountSubgroupFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAccountSubgroupNullableWithAggregatesFilter<$PrismaModel> | $Enums.AccountSubgroup | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAccountSubgroupNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumAvailableTagsFilter<$PrismaModel = never> = {
+  equals?: $Enums.AvailableTags | Prisma.EnumAvailableTagsFieldRefInput<$PrismaModel>
+  in?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel> | $Enums.AvailableTags
+}
+
+export type NestedEnumAvailableTagsWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AvailableTags | Prisma.EnumAvailableTagsFieldRefInput<$PrismaModel>
+  in?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AvailableTags[] | Prisma.ListEnumAvailableTagsFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAvailableTagsWithAggregatesFilter<$PrismaModel> | $Enums.AvailableTags
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAvailableTagsFilter<$PrismaModel>
 }
 
 

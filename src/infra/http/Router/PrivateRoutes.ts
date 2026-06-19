@@ -1,17 +1,22 @@
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { UserController } from '../controllers/UserController';
 import { TServer } from '../HttpServer';
-import { UserSchemas } from '../validators/zod/UserSchemas';
-import { AuthenticationSchemas } from '../validators/zod/AuthenticationSchemas';
+
+import { UserController } from '../controllers/UserController';
 import { AuthController } from '../controllers/AuthController';
-import { CompanySchemas } from '../validators/zod/CompanySchemas';
 import { CompanyController } from '../controllers/CompanyController';
+import { AccountController } from '../controllers/AccountController';
+
+import { AuthenticationSchemas } from '../validators/zod/AuthenticationSchemas';
+import { UserSchemas } from '../validators/zod/UserSchemas';
+import { CompanySchemas } from '../validators/zod/CompanySchemas';
+import { AccountSchemas } from '../validators/zod/AccountSchemas';
 
 export class PrivateRoutes {
   public static register = (childServer: TServer) => {
     const authController = new AuthController();
     const userController = new UserController();
     const companyController = new CompanyController();
+    const accountController = new AccountController();
 
     childServer
       .withTypeProvider<ZodTypeProvider>()
@@ -63,6 +68,48 @@ export class PrivateRoutes {
         '/companies/:companyId',
         CompanySchemas.delete,
         companyController.delete,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .get(
+        '/companies/:companyId/accounts',
+        AccountSchemas.list,
+        accountController.list,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .post(
+        '/companies/:companyId/accounts',
+        AccountSchemas.create,
+        accountController.create,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .put(
+        '/accounts/:accountId',
+        AccountSchemas.update,
+        accountController.update,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .delete(
+        '/accounts/:accountId',
+        AccountSchemas.delete,
+        accountController.delete,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .patch(
+        '/accounts/:accountId/tags/add',
+        AccountSchemas.addTag,
+        accountController.addTag,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .patch(
+        '/accounts/:accountId/tags/remove',
+        AccountSchemas.removeTag,
+        accountController.removeTag,
       );
   };
 }
