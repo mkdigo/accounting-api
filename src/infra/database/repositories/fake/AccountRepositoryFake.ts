@@ -2,6 +2,7 @@ import { Account } from '@/domain/entities/Account';
 import {
   IAccountRepository,
   TAccountCreateInput,
+  TAccountListInput,
   TAccountUpdateInput,
 } from '@/domain/repositories/IAccountRepository';
 import { ITagRepository } from '@/domain/repositories/ITagRepository';
@@ -19,8 +20,27 @@ export class AccountRepositoryFake implements IAccountRepository {
     this.tagRespository = new TagRepositoryFake();
   }
 
-  async list(companyId: string): Promise<Account[]> {
-    return this.accounts.filter((account) => account.company_id === companyId);
+  async list(input: TAccountListInput): Promise<Account[]> {
+    let accounts = this.accounts.filter(
+      (account) => account.company_id === input.companyId,
+    );
+    const name = input.name ?? '';
+    const group = input.group?.value ?? '';
+    const subgroup = input.subgroup?.value ?? '';
+    const tagName = input.tagName?.value ?? null;
+    accounts = accounts.filter(
+      (account) =>
+        account.name.toLowerCase().includes(name.toLowerCase()) &&
+        account.group.value.includes(group) &&
+        account.subgroup.value?.includes(subgroup) &&
+        (!tagName ||
+          account.tags.some((tag) => tag.name.value.includes(tagName))),
+    );
+    // accounts = accounts.filter((account) =>
+    //   account.tags.some((tag) => tag.name.value.includes(tagName)),
+    // );
+    console.log(accounts);
+    return accounts;
   }
 
   async findById(id: string): Promise<Account | null> {

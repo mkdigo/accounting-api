@@ -3,6 +3,9 @@ import z from 'zod';
 export type TAccountListParams = z.infer<
   typeof AccountSchemas.list.schema.params
 >;
+export type TAccountListQuery = z.infer<
+  typeof AccountSchemas.list.schema.querystring
+>;
 export type TAccountCreateParams = z.infer<
   typeof AccountSchemas.create.schema.params
 >;
@@ -49,6 +52,12 @@ export class AccountSchemas {
       security: [{ bearerAuth: [] }],
       params: z.object({
         companyId: z.string(),
+      }),
+      querystring: z.object({
+        name: z.string().optional(),
+        group: z.string().optional(),
+        subgroup: z.string().optional(),
+        tag: z.string().optional(),
       }),
       response: {
         200: z

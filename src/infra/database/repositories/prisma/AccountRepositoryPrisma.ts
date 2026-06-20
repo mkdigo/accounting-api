@@ -3,6 +3,7 @@ import { Tag } from '@/domain/entities/Tag';
 import {
   IAccountRepository,
   TAccountCreateInput,
+  TAccountListInput,
   TAccountUpdateInput,
 } from '@/domain/repositories/IAccountRepository';
 import { ITagRepository } from '@/domain/repositories/ITagRepository';
@@ -14,6 +15,7 @@ import { Prisma } from './Prisma';
 import { TagRepositoryPrisma } from './TagRepositoryPrisma';
 
 import { Exception } from '@/Exception';
+import { AccountWhereInput } from '../../prisma/generated/models';
 
 export class AccountRepositoryPrisma
   extends Prisma
@@ -26,11 +28,31 @@ export class AccountRepositoryPrisma
     this.tagRepository = new TagRepositoryPrisma();
   }
 
-  async list(companyId: string): Promise<Account[]> {
-    const accounts = await this.prisma.account.findMany({
-      where: {
-        company_id: companyId,
+  async list(input: TAccountListInput): Promise<Account[]> {
+    let where: AccountWhereInput = {
+      company_id: input.companyId,
+      name: {
+        contains: input.name,
+        mode: 'insensitive',
       },
+      group: {
+        equals: input.group?.value,
+      },
+      subgroup: {
+        equals: input.subgroup?.value,
+      },
+    };
+    if (input.tagName) {
+      where.tags = {
+        some: {
+          tag: {
+            name: input.tagName.value,
+          },
+        },
+      };
+    }
+    const accounts = await this.prisma.account.findMany({
+      where,
       orderBy: {
         name: 'asc',
       },

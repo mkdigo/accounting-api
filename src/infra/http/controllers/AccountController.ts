@@ -22,6 +22,7 @@ import {
   TAccountCreateParams,
   TAccountDeleteParams,
   TAccountListParams,
+  TAccountListQuery,
   TAccountRemoveTagBody,
   TAccountRemoveTagParams,
   TAccountUpdateBody,
@@ -43,10 +44,20 @@ export class AccountController {
   }
 
   public list = async (
-    request: TRequest<{ Params: TAccountListParams }>,
+    request: TRequest<{ Params: TAccountListParams; Query: TAccountListQuery }>,
     reply: TReply,
   ) => {
     const { companyId } = request.params;
+    const name = request.query.name;
+    const group = request.query.group
+      ? new AccountGroup(request.query.group)
+      : undefined;
+    const subgroup = request.query.subgroup
+      ? new AccountSubgroup(request.query.subgroup)
+      : undefined;
+    const tagName = request.query.tag
+      ? new TagName(request.query.tag)
+      : undefined;
     const companyFindByIdUseCase = new CompanyFindByIdUseCase(
       this.companyRepository,
     );
@@ -55,7 +66,13 @@ export class AccountController {
       throw new Exception({ code: 404, message: 'Company not found' });
     AccountPolicy.list(request, company);
     const accountListUseCase = new AccountListUseCase(this.accountRepository);
-    const accounts = await accountListUseCase.execute(company.id);
+    const accounts = await accountListUseCase.execute({
+      companyId: company.id,
+      name,
+      group,
+      subgroup,
+      tagName,
+    });
     const accountResource = new AccountResource();
     reply.send({
       accounts: accountResource.collection(accounts),
