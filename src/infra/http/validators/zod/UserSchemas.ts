@@ -24,8 +24,8 @@ export const userSchema = z.object({
   district: z.string(),
   address: z.string(),
   username: z.string(),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
+  created_at: z.iso.datetime(),
+  updated_at: z.iso.datetime(),
 });
 
 export class UserSchemas {

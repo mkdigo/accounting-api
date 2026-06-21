@@ -23,8 +23,8 @@ export type TCompanyDeleteParams = z.infer<
 export const companySchema = z.object({
   id: z.string(),
   name: z.string(),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
+  created_at: z.iso.datetime(),
+  updated_at: z.iso.datetime(),
 });
 
 export class CompanySchemas {
