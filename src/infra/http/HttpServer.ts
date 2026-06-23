@@ -66,6 +66,8 @@ export class HttpServer {
 
     // Error Handler
     this.server.setErrorHandler(function (error: any, request, reply) {
+      if (request.raw.destroyed)
+        return reply.code(499).send({ message: 'Client Closed Request' });
       if (env.NODE_ENV === 'development') console.log(error);
       if (error instanceof Error && (error as any).validation) {
         const errors: Record<string, string[]> = {};

@@ -6,15 +6,14 @@ import { ITokenRepository } from '@/domain/repositories/ITokenRepository';
 import { RepositoryFactory } from '@/infra/factories/RepositoryFactory';
 
 export class AuthMiddleware {
-  private request: TRequest | undefined = undefined;
   private tokenRepository: ITokenRepository;
 
   constructor() {
     this.tokenRepository = RepositoryFactory.getTokenRepository();
   }
 
-  private tokenDecode = (): TDecoded | null => {
-    const authorization = this.request?.headers.authorization;
+  private tokenDecode = (request: TRequest): TDecoded | null => {
+    const authorization = request.headers.authorization;
     const regex = new RegExp(/Bearer\s\S*/);
     if (!authorization || !regex.test(authorization)) return null;
     const splited = authorization.split(' ');
@@ -23,9 +22,8 @@ export class AuthMiddleware {
     return tokenManager.verify(token);
   };
 
-  private setAuth = (tokenDecoded: TDecoded) => {
-    if (!this.request) return;
-    this.request.auth = {
+  private setAuth = (request: TRequest, tokenDecoded: TDecoded) => {
+    request.auth = {
       tokenId: tokenDecoded.id,
       user: {
         id: tokenDecoded.userId,
@@ -34,15 +32,14 @@ export class AuthMiddleware {
   };
 
   public defaultLogin = async (request: TRequest, reply: TReply) => {
-    this.request = request;
     let isAuthenticated = false;
 
-    const decoded = this.tokenDecode();
+    const decoded = this.tokenDecode(request);
 
     if (decoded && decoded.type === 'default') {
       const token = await this.tokenRepository.findById(decoded.id);
       if (token && !token.is_banned) {
-        this.setAuth(decoded);
+        this.setAuth(request, decoded);
         isAuthenticated = true;
       }
     }
@@ -55,15 +52,14 @@ export class AuthMiddleware {
   };
 
   public passwordReset = async (request: TRequest, reply: TReply) => {
-    this.request = request;
     let isAuthenticated = false;
 
-    const decoded = this.tokenDecode();
+    const decoded = this.tokenDecode(request);
 
     if (decoded && decoded.type === 'password-reset') {
       const token = await this.tokenRepository.findById(decoded.id);
       if (token && !token.is_banned) {
-        this.setAuth(decoded);
+        this.setAuth(request, decoded);
         isAuthenticated = true;
       }
     }
