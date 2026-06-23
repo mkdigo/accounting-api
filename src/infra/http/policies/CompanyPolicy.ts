@@ -4,7 +4,8 @@ import { Exception } from '@/Exception';
 
 export class CompanyPolicy {
   public static listByUserId(request: TRequest): boolean {
-    return true;
+    if (request.auth) return true;
+    throw new Exception({ code: 403, message: 'Forbidden' });
   }
 
   public static findById(request: TRequest, company: Company): boolean {
@@ -13,7 +14,8 @@ export class CompanyPolicy {
   }
 
   public static create(request: TRequest): boolean {
-    return true;
+    if (request.auth) return true;
+    throw new Exception({ code: 403, message: 'Forbidden' });
   }
 
   public static update(request: TRequest, company: Company): boolean {
