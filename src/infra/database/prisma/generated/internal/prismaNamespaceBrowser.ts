@@ -57,7 +57,8 @@ export const ModelName = {
   Company: 'Company',
   Account: 'Account',
   Tag: 'Tag',
-  AccountTag: 'AccountTag'
+  AccountTag: 'AccountTag',
+  Entry: 'Entry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -153,6 +154,21 @@ export const AccountTagScalarFieldEnum = {
 } as const
 
 export type AccountTagScalarFieldEnum = (typeof AccountTagScalarFieldEnum)[keyof typeof AccountTagScalarFieldEnum]
+
+
+export const EntryScalarFieldEnum = {
+  id: 'id',
+  company_id: 'company_id',
+  inclusion: 'inclusion',
+  debit_id: 'debit_id',
+  credit_id: 'credit_id',
+  value: 'value',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type EntryScalarFieldEnum = (typeof EntryScalarFieldEnum)[keyof typeof EntryScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -5,11 +5,13 @@ import { UserController } from '../controllers/UserController';
 import { AuthController } from '../controllers/AuthController';
 import { CompanyController } from '../controllers/CompanyController';
 import { AccountController } from '../controllers/AccountController';
+import { EntryController } from '../controllers/EntryController';
 
 import { AuthenticationSchemas } from '../validators/zod/AuthenticationSchemas';
 import { UserSchemas } from '../validators/zod/UserSchemas';
 import { CompanySchemas } from '../validators/zod/CompanySchemas';
 import { AccountSchemas } from '../validators/zod/AccountSchemas';
+import { EntrySchemas } from '../validators/zod/EntrySchemas';
 
 export class PrivateRoutes {
   public static register = (childServer: TServer) => {
@@ -17,6 +19,7 @@ export class PrivateRoutes {
     const userController = new UserController();
     const companyController = new CompanyController();
     const accountController = new AccountController();
+    const entryController = new EntryController();
 
     childServer
       .withTypeProvider<ZodTypeProvider>()
@@ -111,5 +114,25 @@ export class PrivateRoutes {
         AccountSchemas.removeTag,
         accountController.removeTag,
       );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .get(
+        '/companies/:companyId/entries',
+        EntrySchemas.list,
+        entryController.list,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .post(
+        '/companies/:companyId/entries',
+        EntrySchemas.create,
+        entryController.create,
+      );
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .put('/entries/:entryId', EntrySchemas.update, entryController.update);
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .delete('/entries/:entryId', EntrySchemas.delete, entryController.delete);
   };
 }

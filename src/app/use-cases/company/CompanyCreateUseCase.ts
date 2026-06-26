@@ -19,6 +19,13 @@ export class CompanyCreateUseCase {
     );
     await accountCreateUseCase.execute({
       company_id: company.id,
+      name: 'Capital Social',
+      group: new AccountGroup('equity'),
+      subgroup: new AccountSubgroup(null),
+      tags: [],
+    });
+    await accountCreateUseCase.execute({
+      company_id: company.id,
       name: 'Caixa',
       group: new AccountGroup('assets'),
       subgroup: new AccountSubgroup('current_assets'),

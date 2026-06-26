@@ -184,6 +184,8 @@ export type AccountWhereInput = {
   subgroup?: Prisma.EnumAccountSubgroupNullableFilter<"Account"> | $Enums.AccountSubgroup | null
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   tags?: Prisma.AccountTagListRelationFilter
+  debitEntries?: Prisma.EntryListRelationFilter
+  creditEntries?: Prisma.EntryListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -194,6 +196,8 @@ export type AccountOrderByWithRelationInput = {
   subgroup?: Prisma.SortOrderInput | Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
   tags?: Prisma.AccountTagOrderByRelationAggregateInput
+  debitEntries?: Prisma.EntryOrderByRelationAggregateInput
+  creditEntries?: Prisma.EntryOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +211,8 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   subgroup?: Prisma.EnumAccountSubgroupNullableFilter<"Account"> | $Enums.AccountSubgroup | null
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   tags?: Prisma.AccountTagListRelationFilter
+  debitEntries?: Prisma.EntryListRelationFilter
+  creditEntries?: Prisma.EntryListRelationFilter
 }, "id">
 
 export type AccountOrderByWithAggregationInput = {
@@ -238,6 +244,8 @@ export type AccountCreateInput = {
   subgroup?: $Enums.AccountSubgroup | null
   company: Prisma.CompanyCreateNestedOneWithoutAccountsInput
   tags?: Prisma.AccountTagCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -247,6 +255,8 @@ export type AccountUncheckedCreateInput = {
   group: $Enums.AccountGroup
   subgroup?: $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagUncheckedCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountUpdateInput = {
@@ -256,6 +266,8 @@ export type AccountUpdateInput = {
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
   company?: Prisma.CompanyUpdateOneRequiredWithoutAccountsNestedInput
   tags?: Prisma.AccountTagUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUpdateManyWithoutCreditAccountNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -265,6 +277,8 @@ export type AccountUncheckedUpdateInput = {
   group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagUncheckedUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUncheckedUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUncheckedUpdateManyWithoutCreditAccountNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -393,12 +407,42 @@ export type AccountUpdateOneRequiredWithoutTagsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutTagsInput, Prisma.AccountUpdateWithoutTagsInput>, Prisma.AccountUncheckedUpdateWithoutTagsInput>
 }
 
+export type AccountCreateNestedOneWithoutDebitEntriesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutDebitEntriesInput, Prisma.AccountUncheckedCreateWithoutDebitEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutDebitEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountCreateNestedOneWithoutCreditEntriesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCreditEntriesInput, Prisma.AccountUncheckedCreateWithoutCreditEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCreditEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutDebitEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutDebitEntriesInput, Prisma.AccountUncheckedCreateWithoutDebitEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutDebitEntriesInput
+  upsert?: Prisma.AccountUpsertWithoutDebitEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutDebitEntriesInput, Prisma.AccountUpdateWithoutDebitEntriesInput>, Prisma.AccountUncheckedUpdateWithoutDebitEntriesInput>
+}
+
+export type AccountUpdateOneRequiredWithoutCreditEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCreditEntriesInput, Prisma.AccountUncheckedCreateWithoutCreditEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCreditEntriesInput
+  upsert?: Prisma.AccountUpsertWithoutCreditEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutCreditEntriesInput, Prisma.AccountUpdateWithoutCreditEntriesInput>, Prisma.AccountUncheckedUpdateWithoutCreditEntriesInput>
+}
+
 export type AccountCreateWithoutCompanyInput = {
   id: string
   name: string
   group: $Enums.AccountGroup
   subgroup?: $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountUncheckedCreateWithoutCompanyInput = {
@@ -407,6 +451,8 @@ export type AccountUncheckedCreateWithoutCompanyInput = {
   group: $Enums.AccountGroup
   subgroup?: $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagUncheckedCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountCreateOrConnectWithoutCompanyInput = {
@@ -452,6 +498,8 @@ export type AccountCreateWithoutTagsInput = {
   group: $Enums.AccountGroup
   subgroup?: $Enums.AccountSubgroup | null
   company: Prisma.CompanyCreateNestedOneWithoutAccountsInput
+  debitEntries?: Prisma.EntryCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountUncheckedCreateWithoutTagsInput = {
@@ -460,6 +508,8 @@ export type AccountUncheckedCreateWithoutTagsInput = {
   name: string
   group: $Enums.AccountGroup
   subgroup?: $Enums.AccountSubgroup | null
+  debitEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutDebitAccountInput
+  creditEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutCreditAccountInput
 }
 
 export type AccountCreateOrConnectWithoutTagsInput = {
@@ -484,6 +534,8 @@ export type AccountUpdateWithoutTagsInput = {
   group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
   company?: Prisma.CompanyUpdateOneRequiredWithoutAccountsNestedInput
+  debitEntries?: Prisma.EntryUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUpdateManyWithoutCreditAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutTagsInput = {
@@ -492,6 +544,120 @@ export type AccountUncheckedUpdateWithoutTagsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
+  debitEntries?: Prisma.EntryUncheckedUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUncheckedUpdateManyWithoutCreditAccountNestedInput
+}
+
+export type AccountCreateWithoutDebitEntriesInput = {
+  id: string
+  name: string
+  group: $Enums.AccountGroup
+  subgroup?: $Enums.AccountSubgroup | null
+  company: Prisma.CompanyCreateNestedOneWithoutAccountsInput
+  tags?: Prisma.AccountTagCreateNestedManyWithoutAccountInput
+  creditEntries?: Prisma.EntryCreateNestedManyWithoutCreditAccountInput
+}
+
+export type AccountUncheckedCreateWithoutDebitEntriesInput = {
+  id: string
+  company_id: string
+  name: string
+  group: $Enums.AccountGroup
+  subgroup?: $Enums.AccountSubgroup | null
+  tags?: Prisma.AccountTagUncheckedCreateNestedManyWithoutAccountInput
+  creditEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutCreditAccountInput
+}
+
+export type AccountCreateOrConnectWithoutDebitEntriesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutDebitEntriesInput, Prisma.AccountUncheckedCreateWithoutDebitEntriesInput>
+}
+
+export type AccountCreateWithoutCreditEntriesInput = {
+  id: string
+  name: string
+  group: $Enums.AccountGroup
+  subgroup?: $Enums.AccountSubgroup | null
+  company: Prisma.CompanyCreateNestedOneWithoutAccountsInput
+  tags?: Prisma.AccountTagCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryCreateNestedManyWithoutDebitAccountInput
+}
+
+export type AccountUncheckedCreateWithoutCreditEntriesInput = {
+  id: string
+  company_id: string
+  name: string
+  group: $Enums.AccountGroup
+  subgroup?: $Enums.AccountSubgroup | null
+  tags?: Prisma.AccountTagUncheckedCreateNestedManyWithoutAccountInput
+  debitEntries?: Prisma.EntryUncheckedCreateNestedManyWithoutDebitAccountInput
+}
+
+export type AccountCreateOrConnectWithoutCreditEntriesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCreditEntriesInput, Prisma.AccountUncheckedCreateWithoutCreditEntriesInput>
+}
+
+export type AccountUpsertWithoutDebitEntriesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutDebitEntriesInput, Prisma.AccountUncheckedUpdateWithoutDebitEntriesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutDebitEntriesInput, Prisma.AccountUncheckedCreateWithoutDebitEntriesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutDebitEntriesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutDebitEntriesInput, Prisma.AccountUncheckedUpdateWithoutDebitEntriesInput>
+}
+
+export type AccountUpdateWithoutDebitEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
+  subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
+  company?: Prisma.CompanyUpdateOneRequiredWithoutAccountsNestedInput
+  tags?: Prisma.AccountTagUpdateManyWithoutAccountNestedInput
+  creditEntries?: Prisma.EntryUpdateManyWithoutCreditAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutDebitEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  company_id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
+  subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
+  tags?: Prisma.AccountTagUncheckedUpdateManyWithoutAccountNestedInput
+  creditEntries?: Prisma.EntryUncheckedUpdateManyWithoutCreditAccountNestedInput
+}
+
+export type AccountUpsertWithoutCreditEntriesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutCreditEntriesInput, Prisma.AccountUncheckedUpdateWithoutCreditEntriesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCreditEntriesInput, Prisma.AccountUncheckedCreateWithoutCreditEntriesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutCreditEntriesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutCreditEntriesInput, Prisma.AccountUncheckedUpdateWithoutCreditEntriesInput>
+}
+
+export type AccountUpdateWithoutCreditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
+  subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
+  company?: Prisma.CompanyUpdateOneRequiredWithoutAccountsNestedInput
+  tags?: Prisma.AccountTagUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUpdateManyWithoutDebitAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutCreditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  company_id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
+  subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
+  tags?: Prisma.AccountTagUncheckedUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUncheckedUpdateManyWithoutDebitAccountNestedInput
 }
 
 export type AccountCreateManyCompanyInput = {
@@ -507,6 +673,8 @@ export type AccountUpdateWithoutCompanyInput = {
   group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUpdateManyWithoutCreditAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutCompanyInput = {
@@ -515,6 +683,8 @@ export type AccountUncheckedUpdateWithoutCompanyInput = {
   group?: Prisma.EnumAccountGroupFieldUpdateOperationsInput | $Enums.AccountGroup
   subgroup?: Prisma.NullableEnumAccountSubgroupFieldUpdateOperationsInput | $Enums.AccountSubgroup | null
   tags?: Prisma.AccountTagUncheckedUpdateManyWithoutAccountNestedInput
+  debitEntries?: Prisma.EntryUncheckedUpdateManyWithoutDebitAccountNestedInput
+  creditEntries?: Prisma.EntryUncheckedUpdateManyWithoutCreditAccountNestedInput
 }
 
 export type AccountUncheckedUpdateManyWithoutCompanyInput = {
@@ -531,10 +701,14 @@ export type AccountUncheckedUpdateManyWithoutCompanyInput = {
 
 export type AccountCountOutputType = {
   tags: number
+  debitEntries: number
+  creditEntries: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tags?: boolean | AccountCountOutputTypeCountTagsArgs
+  debitEntries?: boolean | AccountCountOutputTypeCountDebitEntriesArgs
+  creditEntries?: boolean | AccountCountOutputTypeCountCreditEntriesArgs
 }
 
 /**
@@ -554,6 +728,20 @@ export type AccountCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.AccountTagWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountDebitEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EntryWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountCreditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EntryWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -563,6 +751,8 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   subgroup?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   tags?: boolean | Prisma.Account$tagsArgs<ExtArgs>
+  debitEntries?: boolean | Prisma.Account$debitEntriesArgs<ExtArgs>
+  creditEntries?: boolean | Prisma.Account$creditEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -596,6 +786,8 @@ export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   tags?: boolean | Prisma.Account$tagsArgs<ExtArgs>
+  debitEntries?: boolean | Prisma.Account$debitEntriesArgs<ExtArgs>
+  creditEntries?: boolean | Prisma.Account$creditEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -610,6 +802,8 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     company: Prisma.$CompanyPayload<ExtArgs>
     tags: Prisma.$AccountTagPayload<ExtArgs>[]
+    debitEntries: Prisma.$EntryPayload<ExtArgs>[]
+    creditEntries: Prisma.$EntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1013,6 +1207,8 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tags<T extends Prisma.Account$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  debitEntries<T extends Prisma.Account$debitEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$debitEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  creditEntries<T extends Prisma.Account$creditEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$creditEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1469,6 +1665,54 @@ export type Account$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.AccountTagScalarFieldEnum | Prisma.AccountTagScalarFieldEnum[]
+}
+
+/**
+ * Account.debitEntries
+ */
+export type Account$debitEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Entry
+   */
+  select?: Prisma.EntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Entry
+   */
+  omit?: Prisma.EntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EntryInclude<ExtArgs> | null
+  where?: Prisma.EntryWhereInput
+  orderBy?: Prisma.EntryOrderByWithRelationInput | Prisma.EntryOrderByWithRelationInput[]
+  cursor?: Prisma.EntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EntryScalarFieldEnum | Prisma.EntryScalarFieldEnum[]
+}
+
+/**
+ * Account.creditEntries
+ */
+export type Account$creditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Entry
+   */
+  select?: Prisma.EntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Entry
+   */
+  omit?: Prisma.EntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EntryInclude<ExtArgs> | null
+  where?: Prisma.EntryWhereInput
+  orderBy?: Prisma.EntryOrderByWithRelationInput | Prisma.EntryOrderByWithRelationInput[]
+  cursor?: Prisma.EntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EntryScalarFieldEnum | Prisma.EntryScalarFieldEnum[]
 }
 
 /**

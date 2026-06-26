@@ -9,6 +9,8 @@ import { ICompanyRepository } from '@/domain/repositories/ICompanyRepository';
 import { CompanyRepositoryPrisma } from '../database/repositories/prisma/CompanyRepositoryPrisma';
 import { IAccountRepository } from '@/domain/repositories/IAccountRepository';
 import { AccountRepositoryPrisma } from '../database/repositories/prisma/AccountRepositoryPrisma';
+import { IEntryRepository } from '@/domain/repositories/IEntryRepository';
+import { EntryRepositoryPrisma } from '../database/repositories/prisma/EntryRepositoryPrisma';
 
 export class RepositoryFactory extends Factory {
   public static getUserRepository(): IUserRepository {
@@ -29,5 +31,9 @@ export class RepositoryFactory extends Factory {
 
   public static getAccountRepository(): IAccountRepository {
     return this.make('accountRepository', AccountRepositoryPrisma);
+  }
+
+  public static getEntryRepository(): IEntryRepository {
+    return this.make('entryRepository', EntryRepositoryPrisma);
   }
 }

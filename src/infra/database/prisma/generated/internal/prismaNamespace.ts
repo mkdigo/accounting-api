@@ -390,7 +390,8 @@ export const ModelName = {
   Company: 'Company',
   Account: 'Account',
   Tag: 'Tag',
-  AccountTag: 'AccountTag'
+  AccountTag: 'AccountTag',
+  Entry: 'Entry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "code" | "token" | "company" | "account" | "tag" | "accountTag"
+    modelProps: "user" | "code" | "token" | "company" | "account" | "tag" | "accountTag" | "entry"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -928,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Entry: {
+      payload: Prisma.$EntryPayload<ExtArgs>
+      fields: Prisma.EntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        findFirst: {
+          args: Prisma.EntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        findMany: {
+          args: Prisma.EntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>[]
+        }
+        create: {
+          args: Prisma.EntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        createMany: {
+          args: Prisma.EntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>[]
+        }
+        delete: {
+          args: Prisma.EntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        update: {
+          args: Prisma.EntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EntryPayload>
+        }
+        aggregate: {
+          args: Prisma.EntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEntry>
+        }
+        groupBy: {
+          args: Prisma.EntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EntryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1044,6 +1119,21 @@ export const AccountTagScalarFieldEnum = {
 } as const
 
 export type AccountTagScalarFieldEnum = (typeof AccountTagScalarFieldEnum)[keyof typeof AccountTagScalarFieldEnum]
+
+
+export const EntryScalarFieldEnum = {
+  id: 'id',
+  company_id: 'company_id',
+  inclusion: 'inclusion',
+  debit_id: 'debit_id',
+  credit_id: 'credit_id',
+  value: 'value',
+  note: 'note',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type EntryScalarFieldEnum = (typeof EntryScalarFieldEnum)[keyof typeof EntryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1182,6 +1272,20 @@ export type ListEnumAvailableTagsFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1311,6 +1415,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   tag?: Prisma.TagOmit
   accountTag?: Prisma.AccountTagOmit
+  entry?: Prisma.EntryOmit
 }
 
 /* Types for Logging */

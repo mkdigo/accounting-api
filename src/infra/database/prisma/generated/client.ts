@@ -74,3 +74,8 @@ export type Tag = Prisma.TagModel
  * 
  */
 export type AccountTag = Prisma.AccountTagModel
+/**
+ * Model Entry
+ * 
+ */
+export type Entry = Prisma.EntryModel
