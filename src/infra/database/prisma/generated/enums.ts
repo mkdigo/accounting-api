@@ -34,7 +34,8 @@ export const AccountSubgroup = {
   non_current_liabilities: 'non_current_liabilities',
   revenues: 'revenues',
   costs: 'costs',
-  expenses: 'expenses'
+  expenses: 'expenses',
+  taxes: 'taxes'
 } as const
 
 export type AccountSubgroup = (typeof AccountSubgroup)[keyof typeof AccountSubgroup]

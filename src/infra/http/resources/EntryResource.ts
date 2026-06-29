@@ -19,7 +19,7 @@ export class EntryResource {
     return {
       id: entry.id,
       company_id: entry.company_id,
-      inclusion: entry.inclusion.toISOString(),
+      inclusion: entry.inclusion.toISOString().split('T')[0],
       debit_id: entry.debit_id,
       debit_name: entry.debit_name,
       credit_id: entry.credit_id,

@@ -12,6 +12,8 @@ import { UserSchemas } from '../validators/zod/UserSchemas';
 import { CompanySchemas } from '../validators/zod/CompanySchemas';
 import { AccountSchemas } from '../validators/zod/AccountSchemas';
 import { EntrySchemas } from '../validators/zod/EntrySchemas';
+import { BalanceSheetSchemas } from '../validators/zod/BalanceSheetSchemas';
+import { BalanceSheetController } from '../controllers/BalanceSheetController';
 
 export class PrivateRoutes {
   public static register = (childServer: TServer) => {
@@ -20,6 +22,7 @@ export class PrivateRoutes {
     const companyController = new CompanyController();
     const accountController = new AccountController();
     const entryController = new EntryController();
+    const balanceSheetController = new BalanceSheetController();
 
     childServer
       .withTypeProvider<ZodTypeProvider>()
@@ -134,5 +137,12 @@ export class PrivateRoutes {
     childServer
       .withTypeProvider<ZodTypeProvider>()
       .delete('/entries/:entryId', EntrySchemas.delete, entryController.delete);
+    childServer
+      .withTypeProvider<ZodTypeProvider>()
+      .get(
+        '/companies/:companyId/balance',
+        BalanceSheetSchemas.report,
+        balanceSheetController.report,
+      );
   };
 }

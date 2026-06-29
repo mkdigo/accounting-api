@@ -31,7 +31,7 @@ export class Money {
   }
 
   public sum(other: Money): Money {
-    const result = this._value.add(other._value);
+    const result = this._value.plus(other._value);
     return new Money(result);
   }
 

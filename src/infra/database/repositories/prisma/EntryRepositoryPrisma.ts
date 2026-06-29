@@ -4,6 +4,8 @@ import {
   TEntryCreateInput,
   TEntryListInput,
   TEntryUpdateInput,
+  TGroupByInput,
+  TGroupByOutput,
 } from '@/domain/repositories/IEntryRepository';
 import { Prisma } from './Prisma';
 import { Money } from '@/domain/value-objects/Money';
@@ -102,7 +104,7 @@ export class EntryRepositoryPrisma extends Prisma implements IEntryRepository {
           id: 'desc',
         },
       ],
-      take: input.take ?? 50,
+      take: input.take,
       cursor: input.lastId
         ? {
             id: input.lastId,
@@ -201,5 +203,47 @@ export class EntryRepositoryPrisma extends Prisma implements IEntryRepository {
         id,
       },
     });
+  }
+
+  async groupBy({
+    companyId,
+    by,
+    lte,
+    gte,
+    subgroup,
+    group,
+  }: TGroupByInput): Promise<TGroupByOutput> {
+    const result = await this.prisma.entry.groupBy({
+      by,
+      where: {
+        company_id: companyId,
+        inclusion: {
+          gte,
+          lte,
+        },
+        debitAccount:
+          by === 'debit_id'
+            ? {
+                group: group?.value ?? undefined,
+                subgroup: subgroup?.value ?? undefined,
+              }
+            : undefined,
+        creditAccount:
+          by === 'credit_id'
+            ? {
+                group: group?.value ?? undefined,
+                subgroup: subgroup?.value ?? undefined,
+              }
+            : undefined,
+      },
+      _sum: {
+        value: true,
+      },
+    });
+
+    return result.map((item) => ({
+      id: item.debit_id ?? item.credit_id,
+      value: Money.fromNumber(item._sum.value?.toNumber() ?? 0),
+    }));
   }
 }

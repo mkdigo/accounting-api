@@ -12,8 +12,8 @@ describe('EntryFindByIdUseCase', () => {
   it('should be able to find a entry by id', async () => {
     const userRepository = new UserRepositoryFake();
     const companyRepository = new CompanyRepositoryFake();
-    const entryRepository = new EntryRepositoryFake();
     const accountRepository = new AccountRepositoryFake();
+    const entryRepository = new EntryRepositoryFake(accountRepository);
     const user = await userRepository.findByUsername('user');
     if (!user) {
       expect(false).toBe(true);
@@ -46,7 +46,7 @@ describe('EntryFindByIdUseCase', () => {
       inclusion: '2026-06-20T00:00:00.000Z',
       debitId: debitAccount.id,
       creditId: creditAccount.id,
-      value: '2000.00',
+      value: 2000.0,
       note: 'Testing',
     });
     const entryFindByIdUseCase = new EntryFindByIdUseCase(entryRepository);

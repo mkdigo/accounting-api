@@ -25,21 +25,17 @@ export class AccountRepositoryFake implements IAccountRepository {
       (account) => account.company_id === input.companyId,
     );
     const name = input.name ?? '';
-    const group = input.group?.value ?? '';
-    const subgroup = input.subgroup?.value ?? '';
+    const group = input.group?.value;
+    const subgroup = input.subgroup?.value;
     const tagName = input.tagName?.value ?? null;
     accounts = accounts.filter(
       (account) =>
         account.name.toLowerCase().includes(name.toLowerCase()) &&
-        account.group.value.includes(group) &&
-        account.subgroup.value?.includes(subgroup) &&
+        (group === undefined || account.group.value === group) &&
+        (subgroup === undefined || account.subgroup.value === subgroup) &&
         (!tagName ||
           account.tags.some((tag) => tag.name.value.includes(tagName))),
     );
-    // accounts = accounts.filter((account) =>
-    //   account.tags.some((tag) => tag.name.value.includes(tagName)),
-    // );
-    console.log(accounts);
     return accounts;
   }
 

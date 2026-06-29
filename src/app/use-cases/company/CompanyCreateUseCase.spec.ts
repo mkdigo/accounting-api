@@ -25,6 +25,6 @@ describe('CompanyCreateUseCase', () => {
     expect(company).toMatchObject(input);
 
     const accounts = await accountRepository.list({ companyId: company.id });
-    expect(accounts.length).toBe(12);
+    expect(accounts.length).toBe(14);
   });
 });

@@ -50,6 +50,13 @@ describe('AccountListUseCase', () => {
       subgroup: new AccountSubgroup('current_liabilities'),
       tags: ['credit_card'],
     });
+    await accountRepository.create({
+      company_id: company1.id,
+      name: 'Share Capital',
+      group: new AccountGroup('equity'),
+      subgroup: new AccountSubgroup(null),
+      tags: [],
+    });
     await accountCreateUseCase.execute({
       company_id: company2.id,
       name: 'New Bank',
@@ -57,11 +64,12 @@ describe('AccountListUseCase', () => {
       subgroup: new AccountSubgroup('current_assets'),
       tags: ['bank'],
     });
+
     const accountListUseCase = new AccountListUseCase(accountRepository);
     const accounts = await accountListUseCase.execute({
       companyId: company1.id,
     });
-    expect(accounts.length).toBe(4);
+    expect(accounts.length).toBe(5);
     const accounts2 = await accountListUseCase.execute({
       companyId: company1.id,
       name: 'bank',
@@ -70,9 +78,9 @@ describe('AccountListUseCase', () => {
     const accounts3 = await accountListUseCase.execute({
       companyId: company1.id,
       name: 'bank 2',
-      group: new AccountGroup('assets'),
       subgroup: new AccountSubgroup('current_assets'),
     });
+    console.log(accounts3);
     expect(accounts3.length).toBe(1);
     const accounts4 = await accountListUseCase.execute({
       companyId: company1.id,
@@ -90,5 +98,10 @@ describe('AccountListUseCase', () => {
       tagName: new TagName('credit_card'),
     });
     expect(accounts6.length).toBe(1);
+    const accounts7 = await accountListUseCase.execute({
+      companyId: company1.id,
+      group: new AccountGroup('equity'),
+    });
+    expect(accounts7.length).toBe(1);
   });
 });

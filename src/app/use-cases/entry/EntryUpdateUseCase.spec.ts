@@ -12,8 +12,8 @@ describe('EntryUpdateUseCase', () => {
   it('should be able to update a entry', async () => {
     const userRepository = new UserRepositoryFake();
     const companyRepository = new CompanyRepositoryFake();
-    const entryRepository = new EntryRepositoryFake();
     const accountRepository = new AccountRepositoryFake();
+    const entryRepository = new EntryRepositoryFake(accountRepository);
     const user = await userRepository.findByUsername('user');
     if (!user) {
       expect(false).toBe(true);

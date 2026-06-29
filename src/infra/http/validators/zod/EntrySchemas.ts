@@ -65,7 +65,7 @@ export class EntrySchemas {
         companyId: z.string(),
       }),
       body: z.object({
-        inclusion: z.iso.datetime(),
+        inclusion: z.iso.date(),
         debitId: z.string(),
         creditId: z.string(),
         value: z.number(),
@@ -90,7 +90,7 @@ export class EntrySchemas {
         entryId: z.string(),
       }),
       body: z.object({
-        inclusion: z.iso.datetime(),
+        inclusion: z.iso.date(),
         debitId: z.string(),
         creditId: z.string(),
         value: z.number(),

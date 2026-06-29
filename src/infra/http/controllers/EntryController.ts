@@ -54,6 +54,7 @@ export class EntryController {
     const entries = await entryListUseCase.execute({
       companyId,
       ...input,
+      take: 50,
       subgroup: input.subgroup
         ? new AccountSubgroup(input.subgroup)
         : undefined,

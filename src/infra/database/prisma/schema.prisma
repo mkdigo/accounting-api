@@ -79,6 +79,7 @@ enum AccountSubgroup {
   revenues
   costs
   expenses
+  taxes
 }
 
 model Account {
@@ -126,7 +127,7 @@ model AccountTag {
 model Entry {
   id         String   @id
   company_id String
-  inclusion  DateTime
+  inclusion  DateTime @db.Date
   debit_id   String
   credit_id  String
   value      Decimal  @db.Decimal(15, 2)

@@ -23,6 +23,9 @@ const accountSubgroupTags = {
   expenses: {
     tags: [],
   },
+  taxes: {
+    tags: [],
+  },
 } as const;
 
 type TConstructorInput = {

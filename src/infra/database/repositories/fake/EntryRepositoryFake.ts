@@ -4,11 +4,17 @@ import {
   TEntryCreateInput,
   TEntryListInput,
   TEntryUpdateInput,
+  TGroupByInput,
+  TGroupByOutput,
 } from '@/domain/repositories/IEntryRepository';
 import { Exception } from '@/Exception';
+import { Money } from '@/domain/value-objects/Money';
+import { IAccountRepository } from '@/domain/repositories/IAccountRepository';
 
 export class EntryRepositoryFake implements IEntryRepository {
   private entries: Entry[] = [];
+
+  constructor(private accountRepository: IAccountRepository) {}
 
   async findById(id: string): Promise<Entry | null> {
     const filter = this.entries.filter((entry) => entry.id === id)[0];
@@ -67,5 +73,37 @@ export class EntryRepositoryFake implements IEntryRepository {
         message: 'Entry not found',
       });
     this.entries = this.entries.filter((entry) => entry.id !== id);
+  }
+
+  async groupBy(input: TGroupByInput): Promise<TGroupByOutput> {
+    const accounts = await this.accountRepository.list({
+      companyId: input.companyId,
+      group: input.group,
+      subgroup: input.subgroup,
+    });
+
+    const entries = this.entries.filter((entry) => {
+      return (
+        entry.company_id === input.companyId &&
+        entry.inclusion.getTime() <= input.lte.getTime() &&
+        (input.gte === undefined ||
+          entry.inclusion.getTime() >= input.gte.getTime())
+      );
+    });
+
+    const result = accounts.map((account) => {
+      const value = entries.reduce((prev, entry) => {
+        let value = prev;
+        if (account.id === entry[input.by]) value = value.sum(entry.value);
+        return value;
+      }, Money.fromNumber(0));
+      return {
+        id: account.id,
+        value,
+        name: account.name,
+      };
+    });
+
+    return result;
   }
 }

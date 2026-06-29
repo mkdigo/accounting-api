@@ -108,6 +108,13 @@ export class CompanyCreateUseCase {
       subgroup: new AccountSubgroup('expenses'),
       tags: [],
     });
+    await accountCreateUseCase.execute({
+      company_id: company.id,
+      name: 'Impostos',
+      group: new AccountGroup('income_statement_accounts'),
+      subgroup: new AccountSubgroup('taxes'),
+      tags: [],
+    });
     return company;
   }
 }

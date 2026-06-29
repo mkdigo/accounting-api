@@ -11,8 +11,8 @@ describe('EntryListUseCase', () => {
   it('should be able to list the entries', async () => {
     const userRepository = new UserRepositoryFake();
     const companyRepository = new CompanyRepositoryFake();
-    const entryRepository = new EntryRepositoryFake();
     const accountRepository = new AccountRepositoryFake();
+    const entryRepository = new EntryRepositoryFake(accountRepository);
     const user = await userRepository.findByUsername('user');
     if (!user) {
       expect(false).toBe(true);
@@ -59,7 +59,7 @@ describe('EntryListUseCase', () => {
       inclusion: '2026-06-15T00:00:00.000Z',
       debitId: rentAccount.id,
       creditId: creditAccount.id,
-      value: '2000.00',
+      value: 2000.0,
       note: 'Testing',
     });
     await entryCreateUseCase.execute({
@@ -67,7 +67,7 @@ describe('EntryListUseCase', () => {
       inclusion: '2026-06-17T00:00:00.000Z',
       debitId: watterAccount.id,
       creditId: creditAccount.id,
-      value: '100.00',
+      value: 100.0,
       note: 'Testing',
     });
     await entryCreateUseCase.execute({
@@ -75,7 +75,7 @@ describe('EntryListUseCase', () => {
       inclusion: '2026-06-20T00:00:00.000Z',
       debitId: gasAccount.id,
       creditId: creditAccount.id,
-      value: '200.00',
+      value: 200.0,
       note: 'Testing',
     });
     const entryListUseCase = new EntryListUseCase(entryRepository);

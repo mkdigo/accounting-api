@@ -8,6 +8,7 @@ const availableSubgroups = [
   'revenues',
   'costs',
   'expenses',
+  'taxes',
   null,
 ] as const;
 
