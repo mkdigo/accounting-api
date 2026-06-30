@@ -103,6 +103,7 @@ export class HttpServer {
       console.log(`Server running on port ${env.APP_PORT}`);
       if (err) {
         this.server.log.error(err);
+        console.error(err);
         process.exit(1);
       }
     });
@@ -153,9 +154,11 @@ export class HttpServer {
           deepLinking: false,
         },
       });
-
-      this.server.setValidatorCompiler(validatorCompiler);
-      this.server.setSerializerCompiler(serializerCompiler);
     }
+
+    this.server.setValidatorCompiler(validatorCompiler);
+    this.server.setSerializerCompiler(serializerCompiler);
+
+    this.server.ready();
   }
 }

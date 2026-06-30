@@ -16,6 +16,7 @@
     "target": "ES2024",
     "strict": true,
     "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
     "skipLibCheck": true,
     "rootDir": "./src",
     "outDir": "./dist",
