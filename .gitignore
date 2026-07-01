@@ -3,6 +3,6 @@ node_modules
 .env
 .env.development
 .env.production
-.docker
+.docker*
 src/infra/database/prisma/generated
 *.production.*

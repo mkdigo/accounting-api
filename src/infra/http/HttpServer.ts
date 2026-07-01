@@ -66,8 +66,6 @@ export class HttpServer {
 
     // Error Handler
     this.server.setErrorHandler(function (error: any, request, reply) {
-      if (request.raw.destroyed)
-        return reply.code(499).send({ message: 'Client Closed Request' });
       if (env.NODE_ENV === 'development') console.log(error);
       if (error instanceof Error && (error as any).validation) {
         const errors: Record<string, string[]> = {};
@@ -91,7 +89,8 @@ export class HttpServer {
         });
       }
 
-      this.log.error(error);
+      if (request.raw.destroyed)
+        return reply.code(499).send({ message: 'Client Closed Request' });
 
       reply
         .code(500)
@@ -99,14 +98,16 @@ export class HttpServer {
     });
 
     // Run
-    this.server.listen({ port: env.APP_PORT }, (err, address) => {
-      console.log(`Server running on port ${env.APP_PORT}`);
-      if (err) {
-        this.server.log.error(err);
-        console.error(err);
-        process.exit(1);
-      }
-    });
+    this.server.listen(
+      { port: env.APP_PORT, host: '0.0.0.0' },
+      (err, address) => {
+        console.log(`Server running on port ${env.APP_PORT}`);
+        if (err) {
+          console.error(err);
+          process.exit(1);
+        }
+      },
+    );
   }
 
   private async pluginsRegister() {

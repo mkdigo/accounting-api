@@ -7,7 +7,8 @@
     "dev": "tsx --env-file=.env.development --watch ./src/main.ts",
     "start": "node --env-file=.env.production ./dist/main.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "build": "tsc --project tsconfig.prod.json && tsc-alias",
+    "build:html": "copyfiles -u 1 \"src/**/*.html\" dist",
+    "build": "tsc --project tsconfig.prod.json && tsc-alias && npm run build:html",
     "check": "tsc --noEmit",
     "check:prod": "tsc --project tsconfig.prod.json --noEmit",
     "app:secret": "tsx ./src/scripts/create_app_secret.ts",
@@ -16,7 +17,8 @@
     "prisma:generate": "npx dotenv -e .env.development -- npx prisma generate",
     "prisma:studio": "npx dotenv -e .env.development -- npx prisma studio",
     "db:reset": "npx dotenv -e .env.development -- tsx ./src/scripts/db_reset.ts",
-    "db:seed": "npx dotenv -e .env.development -- tsx ./src/scripts/db_seed.ts"
+    "db:seed": "npx dotenv -e .env.development -- tsx ./src/scripts/db_seed.ts",
+    "db:seed:prod": "node ./dist/scripts/db_seed.js"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +38,7 @@
     "jsonwebtoken": "^9.0.3",
     "nodemailer": "^9.0.1",
     "pg": "^8.21.0",
+    "prisma": "^7.8.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -47,11 +50,11 @@
     "@types/node": "^25.9.1",
     "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.20.0",
+    "copyfiles": "^2.4.1",
     "dotenv": "^17.4.2",
     "dotenv-cli": "^11.0.0",
     "jest": "^30.4.2",
     "json5": "^2.2.3",
-    "prisma": "^7.8.0",
     "ts-jest": "^29.4.9",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.22.0",

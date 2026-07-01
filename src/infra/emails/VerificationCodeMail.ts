@@ -1,3 +1,4 @@
+import { resolve, dirname } from 'node:path';
 import { readFileSync } from 'fs';
 import { ServiceFactory } from '../factories/ServiceFactory';
 import { Exception } from '@/Exception';
@@ -12,8 +13,9 @@ type TSendInput = {
 export class VerificationCodeMail {
   public async send({ email, code, subject }: TSendInput): Promise<void> {
     try {
+      const __dirname = dirname(__filename);
       const file = readFileSync(
-        'src/infra/emails/templates/verificationCodeEmail.html',
+        resolve(__dirname, './templates/verificationCodeEmail.html'),
       );
       const html = file
         .toString()
